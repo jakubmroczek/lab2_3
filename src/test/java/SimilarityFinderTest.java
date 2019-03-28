@@ -19,4 +19,17 @@ public class SimilarityFinderTest {
         int tab2[]={};
         Assertions.assertEquals(1.0,finder.calculateJackardSimilarity(tab1,tab2));
     }
+
+    @Test
+    public void SimilarityFinderTestMethodSearchInvoke(){
+        SimilarityFinder finder=new SimilarityFinder();
+        int tab1[]={1,2,3,4,5,6};
+        int tab2[]={5,4,6,7,8,9};
+        for(int i=0;i<tab1.length;i++){
+
+        }
+        Assertions.assertEquals(0.5,finder.calculateJackardSimilarity(tab1,tab2));
+    }
+
+
 }
