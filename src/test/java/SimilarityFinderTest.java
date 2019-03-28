@@ -24,5 +24,19 @@ public class SimilarityFinderTest {
 
     }
 
+    @Test
+    public static void calculateJackardSimilarityWithSequencesLenZeroTest(){
+
+        SequenceSercher sequenceSercher = new SequenceSercher();
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSercher);
+
+        int[] seq1 = {};
+        int[] seq2 = {};
+
+        Assertions.assertEquals(1,similarityFinder.calculateJackardSimilarity(seq1,seq2));
+
+    }
+
 
 }
