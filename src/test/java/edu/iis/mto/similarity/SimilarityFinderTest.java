@@ -69,5 +69,19 @@ public class SimilarityFinderTest {
     }
 
 
+    @Test (expected = NullPointerException.class)
+    public void shouldThrowNullPointerExceptionIfSequencesAreNotInitialized() {
+
+        int[] seq1 = null;
+        int[] seq2 = null;
+
+        SequenceSearcherDoubler.setNumOfCalls(0);
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDoubler());
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertThat(result, Matchers.equalTo(1.0));
+
+    }
+
 
 }
