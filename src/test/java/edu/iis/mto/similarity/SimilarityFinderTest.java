@@ -31,4 +31,12 @@ public class SimilarityFinderTest {
 
         assertEquals(1.0d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
     }
+
+    @Test
+    public void shouldReturnZeroIfSequencesAreDifferent() {
+        int[] seq1 = {3, 1, 7};
+        int[] seq2 = {4, 2, 8};
+
+        assertEquals(0.0d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
+    }
 }
