@@ -52,4 +52,13 @@ public class SimilarityFinderTest {
         Assert.assertThat(similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence), is(expectedResult));
     }
 
+    @Test
+    public void testJackardSimilarityOfSequencesWhereOneIsEmpty() {
+        int[] firstSequence = {6, 8, 9};
+        int[] secondSequence = {};
+        double expectedResult = 0.0;
+
+        Assert.assertThat(similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence), is(expectedResult));
+    }
+
 }
