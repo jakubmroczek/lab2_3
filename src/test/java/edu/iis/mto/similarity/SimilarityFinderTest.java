@@ -9,10 +9,11 @@ import static org.hamcrest.Matchers.is;
 public class SimilarityFinderTest {
 
     private SimilarityFinder similarityFinder;
+    private SequenceSearcherDouble sequenceSearcherDouble;
 
     @Before
     public void initializeBeforeTest() {
-        SequenceSearcherDouble sequenceSearcherDouble = new SequenceSearcherDouble();
+        sequenceSearcherDouble = new SequenceSearcherDouble();
         similarityFinder = new SimilarityFinder(sequenceSearcherDouble);
     }
 
@@ -67,6 +68,16 @@ public class SimilarityFinderTest {
         int[] secondSequence = null;
 
         similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
+    }
+
+    @Test
+    public void testSearchMethodInvocationsCounterWhereFirstSequenceHasOneElement() {
+        int[] firstSequence = {6};
+        int[] secondSequence = {6, 8, 9};
+        int expectedNumber = 1;
+
+        similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
+        Assert.assertThat(sequenceSearcherDouble.getInvocationsCounterOfSearchMethod(), is(expectedNumber));
     }
 
 }
