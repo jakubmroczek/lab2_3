@@ -3,15 +3,13 @@ package edu.iis.mto.similarity;
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 public class SequenceSearcherMock implements SequenceSearcher {
+
+    private int callsCounter = 0;
+
     @Override
     public SearchResult search(int key, int[] seq) {
-        if (seq == null || seq.length < 1) {
-            throw new IllegalArgumentException("Sequence can't be empty");
-        }
+        callsCounter++;
 
         for(int i = 0; i < seq.length; i++){
             if(key == seq[i]){
@@ -20,5 +18,13 @@ public class SequenceSearcherMock implements SequenceSearcher {
         }
 
         return SearchResult.builder().withFound(false).build();
+    }
+
+    public int getCallsCounter() {
+        return callsCounter;
+    }
+
+    public void setCallsCounter(int callsCounter) {
+        this.callsCounter = callsCounter;
     }
 }
