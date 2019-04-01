@@ -39,4 +39,12 @@ public class SimilarityFinderTest {
 
         assertEquals(0.0d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldReturnNullPointerExceptionOnNotInitialisedSequence() {
+        int[] seq1 = null;
+        int[] seq2 = null;
+
+        this.similarityFinder.calculateJackardSimilarity(seq1, seq2);
+    }
 }
