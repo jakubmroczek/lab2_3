@@ -12,8 +12,8 @@ public class SequenceSearcherDouble implements SequenceSearcher {
         invocationsCounterOfSearchMethod++;
         SearchResult.Builder builder = SearchResult.builder();
 
-        for(int index = 0; index < seq.length; index++) {
-            if(key == seq[index]) {
+        for (int index = 0; index < seq.length; index++) {
+            if (key == seq[index]) {
                 builder.withFound(true);
                 builder.withPosition(index);
                 return builder.build();

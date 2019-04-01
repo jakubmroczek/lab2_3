@@ -90,4 +90,14 @@ public class SimilarityFinderTest {
         Assert.assertThat(sequenceSearcherDouble.getInvocationsCounterOfSearchMethod(), is(expectedNumber));
     }
 
+    @Test
+    public void testSearchMethodInvocationsCounterWhereFirstSequenceHasNoElements() {
+        int[] firstSequence = {};
+        int[] secondSequence = {6, 8, 9};
+        int expectedNumber = 0;
+
+        similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
+        Assert.assertThat(sequenceSearcherDouble.getInvocationsCounterOfSearchMethod(), is(expectedNumber));
+    }
+
 }
