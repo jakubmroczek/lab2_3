@@ -47,4 +47,12 @@ public class SimilarityFinderTest {
 
         this.similarityFinder.calculateJackardSimilarity(seq1, seq2);
     }
+
+    @Test
+    public void shouldReturnProperJackardIndex() {
+        int[] seq1 = {3, 1, 7};
+        int[] seq2 = {4, 1, 7};
+
+        assertEquals(0.5d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
+    }
 }
