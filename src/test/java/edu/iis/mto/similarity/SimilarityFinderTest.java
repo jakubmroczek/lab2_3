@@ -47,4 +47,23 @@ public class SimilarityFinderTest {
 
         Assert.assertThat(similarityResult, is(expectedResult));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void caseThatSequencesAreNull(){
+        int[] firstSequence = null;
+        int[] secondSequence = null;
+
+        SimilarityFinder finder = new SimilarityFinder(new SequenceSearcher() {
+
+            @Override public SearchResult search(int key, int[] seq) {
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
+
+        finder.calculateJackardSimilarity(firstSequence,secondSequence);
+
+    }
+
+
+
 }
