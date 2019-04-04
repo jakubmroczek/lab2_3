@@ -64,6 +64,26 @@ public class SimilarityFinderTest {
 
     }
 
+    @Test()
+    public void caseThatChecksMethodCalls_WorkProperly(){
+
+        SimilarityFinder finder = new SimilarityFinder(new SequenceSearcher() {
+
+            @Override public SearchResult search(int key, int[] seq) {
+                return SearchResult.builder().withFound(false).build();
+            }
+        });
+
+        int[] firstSequence = {1, 2, 3};
+        int[] secondSequence = {1, 2, 3};
+        double expectedResult = 0.0;
+
+        double similarityResult1 = finder.calculateJackardSimilarity(firstSequence, secondSequence);
+        double similarityResult2 = finder.calculateJackardSimilarity(firstSequence, secondSequence);
+
+        Assert.assertThat(similarityResult1, is(expectedResult));
+        Assert.assertThat(similarityResult2, is(expectedResult));
+    }
 
 
 }
