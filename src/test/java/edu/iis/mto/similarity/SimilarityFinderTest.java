@@ -14,6 +14,10 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3, 4, 5};
         int[] seq2 = {1, 2, 3, 4, 5};
 
+        for(int i=0; i<seq1.length; i++){
+            SequenceSearcherDoubler.getIsFound().add(Boolean.TRUE);
+        }
+
         SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDoubler());
         double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(result, Matchers.equalTo(1.0));
@@ -27,6 +31,10 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3, 4, 5};
         int[] seq2 = {6, 7, 8, 9};
 
+        for(int i=0; i<seq1.length; i++) {
+            SequenceSearcherDoubler.getIsFound().add(Boolean.FALSE);
+        }
+
         SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDoubler());
         double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(result, Matchers.equalTo(0.0));
@@ -39,6 +47,14 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         int[] seq2 = {1, 2, 3, 4, 5};
 
+        for(int i=0; i<5; i++) {
+            SequenceSearcherDoubler.getIsFound().add(Boolean.TRUE);
+        }
+
+        for(int i=0; i<5; i++) {
+            SequenceSearcherDoubler.getIsFound().add(Boolean.FALSE);
+        }
+
         SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDoubler());
         double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(result, Matchers.equalTo(0.5));
@@ -50,6 +66,10 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3};
         int[] seq2 = {};
 
+        for(int i=0; i<seq1.length; i++){
+            SequenceSearcherDoubler.getIsFound().add(Boolean.FALSE);
+        }
+
         SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDoubler());
         double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(result, Matchers.equalTo(0.0));
@@ -60,6 +80,13 @@ public class SimilarityFinderTest {
 
         int[] seq1 = {1, 2, 3, 4, 6};
         int[] seq2 = {2, 3, 5};
+
+        SequenceSearcherDoubler.getIsFound().add(Boolean.FALSE);
+        SequenceSearcherDoubler.getIsFound().add(Boolean.TRUE);
+        SequenceSearcherDoubler.getIsFound().add(Boolean.TRUE);
+        SequenceSearcherDoubler.getIsFound().add(Boolean.FALSE);
+        SequenceSearcherDoubler.getIsFound().add(Boolean.FALSE);
+
 
         SequenceSearcherDoubler.setNumOfCalls(0);
         SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherDoubler());
