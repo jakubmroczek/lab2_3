@@ -104,6 +104,29 @@ public class SimilarityFinderTest {
 
     }
 
+    @Test
+    public void calculateIntersectForSequencesWithNumbersInsideTest(){
+
+        Map<Integer, SearchResult> valueMap = new HashMap<>();
+        valueMap.put(0, SearchResult.builder().withFound(true).build());
+        valueMap.put(1, SearchResult.builder().withFound(false).build());
+        valueMap.put(2, SearchResult.builder().withFound(true).build());
+        valueMap.put(5, SearchResult.builder().withFound(true).build());
+        valueMap.put(6, SearchResult.builder().withFound(false).build());
+
+        SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler(valueMap);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherDoubler);
+
+        int[] seq1 = {0,1,2,5,6};
+        int[] seq2 = {0,2,3,4,5,7};
+
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        Assertions.assertEquals(3,sequenceSearcherDoubler.getCounter());
+
+    }
+
 
 
 }

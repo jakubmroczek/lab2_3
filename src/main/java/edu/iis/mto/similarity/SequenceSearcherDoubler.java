@@ -26,7 +26,11 @@ public class SequenceSearcherDoubler implements SequenceSearcher {
 
     @Override
     public SearchResult search(int key, int[] seq) {
-        counter++;
+
+        if(valueMap.get(key).isFound()){
+            counter++;
+        }
+
         return valueMap.get(key);
     }
 }
