@@ -43,6 +43,29 @@ public class SimilarityFinderTest {
 
     }
 
+    @Test
+    public void calculateJackardSimilarityWithDifferentSequences(){
+
+        Map<Integer, SearchResult> valueMap = new HashMap<>();
+        valueMap.put(0, SearchResult.builder().withFound(true).build());
+        valueMap.put(1, SearchResult.builder().withFound(false).build());
+        valueMap.put(2, SearchResult.builder().withFound(true).build());
+        valueMap.put(5, SearchResult.builder().withFound(true).build());
+        valueMap.put(6, SearchResult.builder().withFound(false).build());
+        valueMap.put(8, SearchResult.builder().withFound(false).build());
+        valueMap.put(10, SearchResult.builder().withFound(true).build());
+
+        SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler(valueMap);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherDoubler);
+
+        int[] seq1 = {0,1,2,5,6,8,10};
+        int[] seq2 = {0,2,3,4,5,10,11};
+
+        Assertions.assertEquals(0.4,similarityFinder.calculateJackardSimilarity(seq1,seq2));
+
+    }
+
 
     @Test
     public void calculateJackardSimilarityWithDifferentSizesAndSequences(){
@@ -62,6 +85,22 @@ public class SimilarityFinderTest {
         int[] seq2 = {0,2,3,4,5,7};
 
         Assertions.assertEquals(0.375,similarityFinder.calculateJackardSimilarity(seq1,seq2));
+
+    }
+
+    @Test
+    public void calculateIntersectForEmptySequencesTest(){
+
+        SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler();
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherDoubler);
+
+        int[] seq1 = {};
+        int[] seq2 = {};
+
+        similarityFinder.calculateJackardSimilarity(seq1,seq2);
+
+        Assertions.assertEquals(0,sequenceSearcherDoubler.getCounter());
 
     }
 
