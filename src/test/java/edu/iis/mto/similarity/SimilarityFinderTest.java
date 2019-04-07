@@ -12,8 +12,8 @@ public class SimilarityFinderTest {
     @Test
     public void calculateJackardSimilarity_sameSets_shouldReturnOne() {
 
-        int[] s1 = {1, 2, 3, 4, 5};
-        int[] s2 = {1, 2, 5, 3, 4};
+        int[] s1 = {1, 2, 5, 3, 4};
+        int[] s2 = {1, 2, 3, 4, 5};
 
         double similarity = similarityFinder.calculateJackardSimilarity(s1, s2);
         assertThat(similarity, is(1.0));
@@ -22,8 +22,8 @@ public class SimilarityFinderTest {
     @Test
     public void calculateJackardSimilarity_setsWithEmptyIntersection_shouldReturnZero() {
 
-        int[] s1 = {1, 2, 3};
-        int[] s2 = {4, 5, 6};
+        int[] s1 = {22, 10};
+        int[] s2 = {6, 7, 8};
 
         double similarity = similarityFinder.calculateJackardSimilarity(s1, s2);
         assertThat(similarity, is(0.0));
@@ -32,8 +32,8 @@ public class SimilarityFinderTest {
     @Test
     public void calculateJackardSimilarity_setsWithNonEmptyIntersection_shouldReturnValueBetween0And1() {
 
-        int[] s1 = {1, 2, 3};
-        int[] s2 = {1, 2, 6};
+        int[] s1 = {1, 2, 4, 8};
+        int[] s2 = {1, 2, 3, 4, 5};
 
         double similarity = similarityFinder.calculateJackardSimilarity(s1, s2);
         assertThat(similarity, is(0.5));
