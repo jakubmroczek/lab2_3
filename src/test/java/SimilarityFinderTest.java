@@ -1,5 +1,4 @@
 import edu.iis.mto.search.SearchResult;
-import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.SequenceSearcherDoubler;
 import edu.iis.mto.similarity.SimilarityFinder;
 import org.junit.jupiter.api.Assertions;
@@ -8,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimilarityFinderTest {
+class SimilarityFinderTest {
 
     @Test
-    public void calculateJackardSimilarityWithSameSequencesTest(){
+    void calculateJackardSimilarityWithSameSequencesTest(){
 
         Map<Integer, SearchResult> valueMap = new HashMap<>();
         valueMap.put(1, SearchResult.builder().withFound(true).build());
@@ -30,7 +29,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void calculateJackardSimilarityWithSequencesLenZeroTest(){
+    void calculateJackardSimilarityWithSequencesLenZeroTest(){
 
         SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler();
 
@@ -44,7 +43,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void calculateJackardSimilarityWithDifferentSequences(){
+    void calculateJackardSimilarityWithDifferentSequences(){
 
         Map<Integer, SearchResult> valueMap = new HashMap<>();
         valueMap.put(0, SearchResult.builder().withFound(true).build());
@@ -68,7 +67,7 @@ public class SimilarityFinderTest {
 
 
     @Test
-    public void calculateJackardSimilarityWithDifferentSizesAndSequences(){
+    void calculateJackardSimilarityWithDifferentSizesAndSequences(){
 
         Map<Integer, SearchResult> valueMap = new HashMap<>();
         valueMap.put(0, SearchResult.builder().withFound(true).build());
@@ -89,7 +88,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void calculateIntersectForEmptySequencesTest(){
+    void calculateIntersectForEmptySequencesTest(){
 
         SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler();
 
@@ -105,7 +104,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void calculateIntersectForSequencesWithNumbersInsideTest(){
+    void calculateIntersectForSequencesWithNumbersInsideTest(){
 
         Map<Integer, SearchResult> valueMap = new HashMap<>();
         valueMap.put(0, SearchResult.builder().withFound(true).build());
