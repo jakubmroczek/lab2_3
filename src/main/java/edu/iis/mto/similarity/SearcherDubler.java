@@ -3,23 +3,36 @@ package edu.iis.mto.similarity;
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class SearcherDubler implements SequenceSearcher {
 
-    public static int numberOfCallsOfSearchMethod = 0;
+    private Map<Integer, SearchResult> map;
+    private int numberOfCalls;
+
+    public int getNumberOfCalls() {
+        return numberOfCalls;
+    }
+
+    SearcherDubler()
+    {
+        numberOfCalls = 0;
+    }
 
     public SearchResult search(int key, int[] seq) {
-        SearchResult.Builder builder =  SearchResult.builder();
 
-        numberOfCallsOfSearchMethod++;
+        SearchResult.Builder builder = SearchResult.builder();
+        List<Integer> list = Arrays.stream(seq).boxed().collect(Collectors.toList());
 
-        for(int i = 0; i < seq.length; i++) {
-            if(key == seq[i]) {
-                builder.withFound(true);
-                builder.withPosition(i);
-            }
-        }
+        numberOfCalls++;
+
+        builder.withFound(list.contains(key));
+        builder.withPosition(list.indexOf(key));
 
         return builder.build();
     }
-
 }

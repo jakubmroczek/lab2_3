@@ -46,7 +46,7 @@ public class SimilarityFinderTest {
 
         similarityFinder.calculateJackardSimilarity(seq1, seq2);
 
-        assertThat(searcher.numberOfCallsOfSearchMethod, Matchers.is(expectedNumberOfCallsOfSearchMethod));
+        assertThat(searcher.getNumberOfCalls(), Matchers.is(expectedNumberOfCallsOfSearchMethod));
     }
 
     @Test (expected = NullPointerException.class)
@@ -97,10 +97,4 @@ public class SimilarityFinderTest {
 
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(expectedResult));
     }
-
-
-
-
-
-
 }
