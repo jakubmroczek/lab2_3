@@ -37,4 +37,18 @@ public class SimilarityFinderTest {
         double expected = 0.0;
         assertThat(calculatedValue, is(expected));
     }
+
+    @Test
+    public void useCountShouldExactlyTheSameAsFirstArrayHasLength() {
+
+        int[] seq1 = {1, 2, 3, 4};
+        int[] seq2 = {5, 6, 7, 8};
+        boolean[] seqReturn = {false, false, false, false};
+
+        SequenceSearcherImpl sequenceSearcher = new SequenceSearcherImpl(seqReturn);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+
+        assertThat(sequenceSearcher.getCounter(), is(seq1.length));
+    }
 }

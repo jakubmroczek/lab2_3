@@ -12,6 +12,10 @@ public class SequenceSearcherImpl implements SequenceSearcher {
         this.seqReturn = seqReturn;
     }
 
+    public int getCounter() {
+        return counter;
+    }
+
     @Override public SearchResult search(int key, int[] seq) {
         return SearchResult.builder().withFound(seqReturn[counter++]).build();
     }
