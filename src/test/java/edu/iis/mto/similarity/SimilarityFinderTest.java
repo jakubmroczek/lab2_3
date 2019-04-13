@@ -1,19 +1,39 @@
 package edu.iis.mto.similarity;
 
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+import edu.iis.mto.search.SearchResult;
+
 
 import static org.junit.Assert.*;
 
 public class SimilarityFinderTest {
+
+    private Map<Integer, SearchResult> map;
+    private SearcherDubler searcherDubler;
+    private SimilarityFinder similarityFinder;
+
+    @Before
+    public void setup() {
+        map = new HashMap<>();
+        searcherDubler = new SearcherDubler(map);
+        similarityFinder = new SimilarityFinder(searcherDubler);
+    }
 
     @Test public void calculateJackardSimilarityShouldReturnZeroComaThreeAsResult() {
 
         int[] seq1 = {1,2,3,6,8};
         int[] seq2 = {1,2,4,5,6,7,9,10};
 
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
+        map.put(1, SearchResult.builder().withFound(true).build());
+        map.put(2, SearchResult.builder().withFound(true).build());
+        map.put(3, SearchResult.builder().withFound(false).build());
+        map.put(6, SearchResult.builder().withFound(true).build());
+        map.put(8, SearchResult.builder().withFound(false).build());
 
         double expectedResult = 0.3;
 
@@ -25,8 +45,11 @@ public class SimilarityFinderTest {
         int[] seq1 = {1,2,3,4,5};
         int[] seq2 = {6,7,8};
 
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
+        map.put(1, SearchResult.builder().withFound(false).build());
+        map.put(2, SearchResult.builder().withFound(false).build());
+        map.put(3, SearchResult.builder().withFound(false).build());
+        map.put(4, SearchResult.builder().withFound(false).build());
+        map.put(5, SearchResult.builder().withFound(false).build());
 
         double expectedResult = 0;
 
@@ -39,22 +62,22 @@ public class SimilarityFinderTest {
         int[] seq1 = {1,2,3,6,8};
         int[] seq2 = {1,2,4,5,6,7,9,10};
 
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
+        map.put(1, SearchResult.builder().withFound(true).build());
+        map.put(2, SearchResult.builder().withFound(true).build());
+        map.put(3, SearchResult.builder().withFound(false).build());
+        map.put(6, SearchResult.builder().withFound(true).build());
+        map.put(8, SearchResult.builder().withFound(false).build());
 
         int expectedNumberOfCallsOfSearchMethod = 5;
 
         similarityFinder.calculateJackardSimilarity(seq1, seq2);
 
-        assertThat(searcher.getNumberOfCalls(), Matchers.is(expectedNumberOfCallsOfSearchMethod));
+        assertThat(searcherDubler.getNumberOfCalls(), Matchers.is(expectedNumberOfCallsOfSearchMethod));
     }
 
     @Test (expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionIfArgumentIsNull() {
         int[] seq1 = {1,2,3,4,5};
-
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
 
         similarityFinder.calculateJackardSimilarity(seq1, null);
     }
@@ -64,8 +87,11 @@ public class SimilarityFinderTest {
         int[] seq1 = {1,2,3,4,5};
         int[] seq2 = {1,2,3,4,5};
 
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
+        map.put(1, SearchResult.builder().withFound(true).build());
+        map.put(2, SearchResult.builder().withFound(true).build());
+        map.put(3, SearchResult.builder().withFound(true).build());
+        map.put(4, SearchResult.builder().withFound(true).build());
+        map.put(5, SearchResult.builder().withFound(true).build());
 
         double expectedResult = 1;
 
@@ -77,8 +103,11 @@ public class SimilarityFinderTest {
         int[] seq1 = {1,2,3,4,5};
         int[] seq2 = {};
 
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
+        map.put(1, SearchResult.builder().withFound(false).build());
+        map.put(2, SearchResult.builder().withFound(false).build());
+        map.put(3, SearchResult.builder().withFound(false).build());
+        map.put(4, SearchResult.builder().withFound(false).build());
+        map.put(5, SearchResult.builder().withFound(false).build());
 
         double expectedResult = 0;
 
@@ -89,9 +118,6 @@ public class SimilarityFinderTest {
 
         int[] seq1 = {};
         int[] seq2 = {};
-
-        SearcherDubler searcher = new SearcherDubler();
-        SimilarityFinder similarityFinder = new SimilarityFinder(searcher);
 
         double expectedResult = 1;
 
