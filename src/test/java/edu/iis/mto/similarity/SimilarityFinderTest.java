@@ -7,52 +7,58 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SimilarityFinderTest {
-    private SequenceSearcher sequenceSearcher;
-    private SimilarityFinder similarityFinder;
-
-    @Before
-    public void init() {
-        this.sequenceSearcher = new SequenceSearcherDoubler();
-        this.similarityFinder = new SimilarityFinder(sequenceSearcher);
-    }
 
     @Test
     public void shouldReturnOneIfSequenceHasLengthZero() {
-        int[] seq1 = new int[1];
-        int[] seq2 = new int[1];
+        SequenceSearcher sequenceSearcher = new SequenceSearcherDoubler(new boolean[] {});
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
 
-        assertEquals(1.0d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
+        int[] seq1 = {};
+        int[] seq2 = {};
+
+        assertEquals(1.0d, similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
     }
 
     @Test
     public void shouldReturnOneIfSequencesAreTheSame() {
+        SequenceSearcher sequenceSearcher = new SequenceSearcherDoubler(new boolean[] {true, true, true});
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
         int[] seq1 = {3, 1, 7};
         int[] seq2 = {3, 1, 7};
 
-        assertEquals(1.0d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
+        assertEquals(1.0d, similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
     }
 
     @Test
     public void shouldReturnZeroIfSequencesAreDifferent() {
+        SequenceSearcher sequenceSearcher = new SequenceSearcherDoubler(new boolean[] {false, false, false});
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
         int[] seq1 = {3, 1, 7};
         int[] seq2 = {4, 2, 8};
 
-        assertEquals(0.0d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
+        assertEquals(0.0d, similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
     }
 
     @Test(expected = NullPointerException.class)
     public void shouldReturnNullPointerExceptionOnNotInitialisedSequence() {
+        SequenceSearcher sequenceSearcher = new SequenceSearcherDoubler(new boolean[] {});
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
         int[] seq1 = null;
         int[] seq2 = null;
 
-        this.similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
     }
 
     @Test
     public void shouldReturnProperJackardIndex() {
+        SequenceSearcher sequenceSearcher = new SequenceSearcherDoubler(new boolean[] {false, true, true});
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
         int[] seq1 = {3, 1, 7};
         int[] seq2 = {4, 1, 7};
 
-        assertEquals(0.5d, this.similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
+        assertEquals(0.5d, similarityFinder.calculateJackardSimilarity(seq1, seq2), 0);
     }
 }
