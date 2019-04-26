@@ -31,4 +31,18 @@ public class SimilarityFinderTest {
 		
 		assertThat(expectedResult, is(1.0));
 	}
+	
+	@Test
+	public void shouldReturnZeroWhenSequencesAreNotEqual() {
+		int[] seq1 = {1,2,3,4,5,6,7};
+		int[] seq2 = {12,23,42,46,56,57,88,91};
+		
+		for(int i = 0 ; i < seq1.length ; i++) {
+			stub.getIsFound().add(false);
+		}
+		
+		double expectedResult = finder.calculateJackardSimilarity(seq1, seq2);
+		
+		assertThat(expectedResult, is(0.0));
+	}
 }
