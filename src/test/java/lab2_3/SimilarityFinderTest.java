@@ -67,4 +67,18 @@ public class SimilarityFinderTest {
 		double expectedResult = finder.calculateJackardSimilarity(seq1, seq2);
 		assertThat(expectedResult, is(0.0));
 	}
+	
+	@Test
+	public void searchMethodShouldBeCalledOncePerElementInSequence() {
+		int seq1[] = {4,5,6,7};
+		int seq2[] = {4,5};
+		
+		stub.getIsFound().add(true);
+		stub.getIsFound().add(true);
+		stub.getIsFound().add(false);
+		stub.getIsFound().add(false);
+		
+		finder.calculateJackardSimilarity(seq1, seq2);
+		assertThat(stub.getInvocationCount(), is(4));
+	}
 }
