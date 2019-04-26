@@ -45,4 +45,13 @@ public class SimilarityFinderTest {
 		
 		assertThat(expectedResult, is(0.0));
 	}
+	
+	@Test(expected = NullPointerException.class)
+	public void shouldThrowNullPointerExceptionWhenSequencesAreNotInitialized() {
+		int[] seq1 = null;
+		int[] seq2 = null;
+		
+		double expectedResult = finder.calculateJackardSimilarity(seq1, seq2);
+		assertThat(expectedResult, is(1.0));
+	}
 }
