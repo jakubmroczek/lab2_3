@@ -54,4 +54,17 @@ public class SimilarityFinderTest {
 		double expectedResult = finder.calculateJackardSimilarity(seq1, seq2);
 		assertThat(expectedResult, is(1.0));
 	}
+	
+	@Test
+	public void shouldReturnZeroWhenOneSequenceIsEmpty() {
+		int[] seq1 = {3,4,5};
+		int[] seq2 = {};
+		
+		for(int i = 0 ; i < seq1.length ; i++) {
+			stub.getIsFound().add(false);
+		}
+		
+		double expectedResult = finder.calculateJackardSimilarity(seq1, seq2);
+		assertThat(expectedResult, is(0.0));
+	}
 }
