@@ -51,4 +51,15 @@ public class SimilarityFinderTest {
 
         assertEquals(sut.calculateJackardSimilarity(first, second), 0.43, EPSILON);
     }
+
+    @Test
+    public void shouldSequenceSearchMockBeCalledSevenTimes() {
+        int[] first = {1, 2, 3, 4, 5, 8, 9};
+        int[] second = {5, 8, 9};
+
+        sequenceSearchMock.setResults(Arrays.asList(false, false, false, false, true, true, true));
+        sut.calculateJackardSimilarity(first, second);
+
+        assertEquals(sequenceSearchMock.getCalls(), 7);
+    }
 }

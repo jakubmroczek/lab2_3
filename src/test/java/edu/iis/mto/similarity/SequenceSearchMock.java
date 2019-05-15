@@ -10,14 +10,20 @@ public class SequenceSearchMock implements SequenceSearcher {
 
     private List<Boolean> results;
     private Iterator<Boolean> iterator;
+    private int calls = 0;
 
     @Override
     public SearchResult search(int key, int[] seq) {
+        calls++;
         return SearchResult.builder().withFound(iterator.next()).build();
     }
 
     public void setResults(List<Boolean> results) {
         this.results = results;
         this.iterator = results.iterator();
+    }
+
+    public int getCalls() {
+        return calls;
     }
 }
