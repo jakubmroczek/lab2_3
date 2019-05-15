@@ -62,4 +62,10 @@ public class SimilarityFinderTest {
 
         assertEquals(sequenceSearchMock.getCalls(), 7);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowAnExcepetionOnNulls() {
+        sut.calculateJackardSimilarity(null, null);
+    }
+
 }
