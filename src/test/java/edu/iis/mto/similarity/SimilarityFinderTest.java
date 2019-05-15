@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 
@@ -68,4 +66,11 @@ public class SimilarityFinderTest {
         sut.calculateJackardSimilarity(null, null);
     }
 
+    @Test
+    public void shouldJaccardIndexBe0() {
+        int[] first = {};
+        int[] second = {1};
+
+        assertEquals(sut.calculateJackardSimilarity(first, second), 0.0, EPSILON);
+    }
 }
